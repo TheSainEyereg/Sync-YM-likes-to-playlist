@@ -10,7 +10,7 @@
 	"targetPlaylist": 1014
 }
 ```
-Get YM token at: https://music-yandex-bot.ru/ (View network tab)
+Get YM token in **network tab in DevTools (F12)** at: https://music-yandex-bot.ru/ (View network tab)
 
 2. Run `npm i`.
 3. Copy all files from `ym-api fix/` to `node_modules/ym-api/dist/`.
