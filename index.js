@@ -5,10 +5,10 @@ const ymApi = new YMApi();
 
 async function waitForRevision(action) {
 	try {
-		return await action(1)
+		return await action(1);
 	} catch (e) {
 		if (e.name === "wrong-revision") {
-			return action(parseInt(e.message.split("actual revision: ")[1]))
+			return action(parseInt(e.message.split("actual revision: ")[1]));
 		} else throw e;
 	}
 }
@@ -18,12 +18,13 @@ async function waitForRevision(action) {
 	const likedList = await ymApi.getPlaylist("3");
 	const targetList = await ymApi.getPlaylist(""+targetPlaylist);
 	
-	const likedTracks = likedList.tracks.map(t => t.track)
-	const targetTracks = targetList.tracks.map(t => t.track)
+	const likedTracks = likedList.tracks.map(t => t.track);
+	const targetTracks = targetList.tracks.map(t => t.track);
+
+
 	console.log("Checking for extra tracks...");
 	const toRemove = Array.from(targetTracks)
-		.filter(tt => !likedTracks.find(lt => (lt.id === tt.id) && (lt.albums[0].id === tt.albums[0].id))) // lt -- LikedTrack; tt -- TargetTrack
-
+		.filter(tt => !likedTracks.find(lt => (lt.id === tt.id) && (lt.albums[0].id === tt.albums[0].id))); // lt -- LikedTrack; tt -- TargetTrack
 	let removedCount = 0;
 	for (const track of toRemove) {
 		if (!track.available) continue;
@@ -36,10 +37,9 @@ async function waitForRevision(action) {
 		));
 		removedCount++
 	}
-
 	console.log(`Removed ${toRemove.length} track${toRemove.length == 1 ? "s" : ""}`);
 
-
+	
 	console.log("Checking for missing tracks...");
 	const toAddArray = Array.from(likedTracks)
 		.filter(lt => lt.available && !targetTracks.find(tt => (tt.id === lt.id) && (tt.albums[0].id === lt.albums[0].id)))
