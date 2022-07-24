@@ -24,7 +24,7 @@ async function waitForRevision(action) {
 
 	console.log("Checking for extra tracks...");
 	const toRemove = Array.from(targetTracks)
-		.filter(tt => !likedTracks.find(lt => (lt.id === tt.id) && (lt.albums[0].id === tt.albums[0].id))); // lt -- LikedTrack; tt -- TargetTrack
+		.filter(tt => !likedTracks.find(lt => lt.available && (lt.id === tt.id) && (lt.albums[0].id === tt.albums[0].id))); // lt -- LikedTrack; tt -- TargetTrack
 	let removedCount = 0;
 	for (const track of toRemove) {
 		if (!track.available) continue;
